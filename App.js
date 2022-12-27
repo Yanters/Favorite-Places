@@ -1,20 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AllPlacesScreen from './screens/AllPlacesScreen';
+import AddPlaceScreen from './screens/AddPlaceScreen';
+import IconButton from './components/UI/IconButton';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style='dark' />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name='AllPlaces'
+            component={AllPlacesScreen}
+            options={({ navigation }) => ({
+              title: 'Your Favourite Places',
+              headerRight: ({ tintColor }) => (
+                <IconButton
+                  icon='add'
+                  size={30}
+                  color={tintColor}
+                  onPress={() => navigation.navigate('AddPlace')}
+                />
+              ),
+            })}
+          />
+          <Stack.Screen
+            name='AddPlace'
+            component={AddPlaceScreen}
+            options={{ title: 'Add a new Place' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

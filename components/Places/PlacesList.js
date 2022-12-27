@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 const PlacesList = ({ places }) => {
   if (!places || places.length === 0)
