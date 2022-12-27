@@ -6,14 +6,20 @@ import {
   useForegroundPermissions,
   PermissionStatus,
 } from 'expo-location';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getMapPreview } from '../../util/location';
-import { useNavigation } from '@react-navigation/native';
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 
 const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
+
+  const isFocused = useIsFocused();
 
   const verifyPermissions = async () => {
     if (
@@ -53,10 +59,21 @@ const LocationPicker = () => {
   };
 
   const navigation = useNavigation();
+  const route = useRoute();
 
   const pickOnMapHandler = () => {
     navigation.navigate('Map');
   };
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng,
+      };
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [route, isFocused]);
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
