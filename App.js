@@ -7,14 +7,14 @@ import AddPlaceScreen from './screens/AddPlaceScreen';
 import IconButton from './components/UI/IconButton';
 import { Colors } from './constants/colors';
 import MapScreen from './screens/MapScreen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { init } from './util/database';
 import AppLoading from 'expo-app-loading';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  cosnt[(dbInitialized, setDbInitialized)] = useState(false);
+  const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
     init()
