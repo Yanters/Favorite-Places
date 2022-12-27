@@ -14,7 +14,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 
-const LocationPicker = () => {
+const LocationPicker = ({ onPickLocation }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -40,6 +40,12 @@ const LocationPicker = () => {
 
     return true;
   };
+
+  useEffect(() => {
+    if (pickedLocation) {
+      onPickLocation(pickedLocation);
+    }
+  }, [pickedLocation, onPickLocation]);
 
   const getLocationHandler = async () => {
     const hasPermission = await verifyPermissions();
