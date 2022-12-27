@@ -6,7 +6,7 @@ import Button from '../UI/Button';
 import ImagePicker from './ImagePicker';
 import LocationPicker from './LocationPicker';
 
-const PlaceForm = ({onCreatePlace}) => {
+const PlaceForm = ({ onCreatePlace }) => {
   const [title, setTitle] = useState('');
   const [selectedImage, setSelectedImage] = useState();
   const [pickedLocation, setPickedLocation] = useState();
@@ -24,11 +24,7 @@ const PlaceForm = ({onCreatePlace}) => {
   }, []);
 
   const savePlaceHandler = () => {
-    const placeData = new Place(
-      title,
-      selectedImage,
-      pickedLocation
-    );
+    const placeData = new Place(title, selectedImage, pickedLocation);
     onCreatePlace(placeData);
   };
 
